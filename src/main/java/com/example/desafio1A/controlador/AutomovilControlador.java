@@ -26,4 +26,10 @@ public class AutomovilControlador {
         List<Automovil> automoviles = automovilServicio.generarAutomoviles(cantidad);
         return ResponseEntity.ok(automoviles);
     }
+
+    @GetMapping("/tipo/{tipo}")
+    public ResponseEntity<List<Automovil>> getAutomovilesByTipo(@PathVariable("tipo") String tipo) {
+        List<Automovil> automovilesFiltrados = automovilServicio.getAutomovilesByTipo(tipo);
+        return ResponseEntity.ok(automovilesFiltrados);
+    }
 }

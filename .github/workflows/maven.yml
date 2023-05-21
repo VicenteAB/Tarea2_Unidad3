@@ -2,12 +2,7 @@ name: Java CI with Maven
 
 on:
   push:
-    branches:
-      - '!master'
-      - '!develop'
-      - pipeline
-      - feature/Desafio-1A
-      - feature/Desafio-2A
+    branches: [ "pipeline" ]
 
 jobs:
   build:

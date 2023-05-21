@@ -23,6 +23,11 @@ public class AutomovilServicio {
 
     private final Random random = new Random();
 
+    private List<Automovil> automoviles;
+
+    public AutomovilServicio() {
+        automoviles = generarAutomoviles(100);
+    }
     public List<Automovil> generarAutomoviles(int cantidad) {
         automovilesGenerados.clear();
         List<Automovil> automoviles = new ArrayList<>();
@@ -59,6 +64,7 @@ public class AutomovilServicio {
         return automoviles;
     }
 
+<<<<<<< HEAD
     public List<Automovil> obtenerAutomovilesGenerados() {
         return automovilesGenerados;
     }
@@ -84,5 +90,19 @@ public class AutomovilServicio {
         }
 
         return resultado;
+=======
+    public List<Automovil> filtrarAutomoviles(Integer precio, String tipo, String color) {
+        List<Automovil> automovilesFiltrados = generarAutomoviles(100); // Generar una nueva lista de automóviles
+
+        return automovilesFiltrados.stream()
+                .filter(automovil -> {
+                    boolean precioFiltrado = precio == null || automovil.getPrecio() <= precio;
+                    boolean tipoFiltrado = tipo == null || automovil.getTipo().equalsIgnoreCase(tipo);
+                    boolean colorFiltrado = color == null || automovil.getColor().equalsIgnoreCase(color);
+
+                    return precioFiltrado && tipoFiltrado && colorFiltrado;
+                })
+                .collect(Collectors.toList());
+>>>>>>> b02ced9ca7c6ac58a26a02f1664c4af094659b68
     }
 }

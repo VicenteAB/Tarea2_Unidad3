@@ -59,10 +59,4 @@ public class AutomovilServicio {
 
         return automoviles;
     }
-
-    public List<Automovil> getAutomovilesByTipo(String tipo) {
-        return automoviles.stream()
-                .filter(automovil -> automovil.getTipo().equalsIgnoreCase(tipo))
-                .collect(Collectors.toList());
-    }
 }

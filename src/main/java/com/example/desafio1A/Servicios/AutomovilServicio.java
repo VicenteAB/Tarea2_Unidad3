@@ -19,11 +19,6 @@ public class AutomovilServicio {
     private final List<String> motoresCamioneta = Arrays.asList("2.4cc", "3.0cc", "4.0cc");
     private final List<String> motoresSUV = Arrays.asList("1.8cc", "2.2cc", "2.8cc");
 
-    private List<Automovil> automoviles;
-
-    public AutomovilServicio() {
-        automoviles = generarAutomoviles(100);
-    }
     private final Random random = new Random();
 
     public List<Automovil> generarAutomoviles(int cantidad) {
@@ -60,9 +55,4 @@ public class AutomovilServicio {
         return automoviles;
     }
 
-    public List<Automovil> getAutomovilesByTipo(String tipo) {
-        return automoviles.stream()
-                .filter(automovil -> automovil.getTipo().equalsIgnoreCase(tipo))
-                .collect(Collectors.toList());
-    }
 }

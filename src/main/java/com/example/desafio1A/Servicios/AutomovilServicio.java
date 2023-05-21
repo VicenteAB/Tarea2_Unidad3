@@ -61,7 +61,9 @@ public class AutomovilServicio {
     }
 
     public List<Automovil> filtrarAutomoviles(Integer precio, String tipo, String color) {
-        return automoviles.stream()
+        List<Automovil> automovilesFiltrados = generarAutomoviles(100); // Generar una nueva lista de automóviles
+
+        return automovilesFiltrados.stream()
                 .filter(automovil -> {
                     boolean precioFiltrado = precio == null || automovil.getPrecio() <= precio;
                     boolean tipoFiltrado = tipo == null || automovil.getTipo().equalsIgnoreCase(tipo);

@@ -20,6 +20,7 @@ public class AutomovilServicio {
     private final List<String> motoresSUV = Arrays.asList("1.8cc", "2.2cc", "2.8cc");
 
     private final Random random = new Random();
+    private List<Automovil> automoviles;
 
     public List<Automovil> generarAutomoviles(int cantidad) {
         List<Automovil> automoviles = new ArrayList<>();
@@ -53,6 +54,32 @@ public class AutomovilServicio {
         }
 
         return automoviles;
+    }
+
+    public List<Automovil> filtrarAutomoviles(Integer precio, String tipo, String color) {
+        List<Automovil> automovilesFiltrados = new ArrayList<>();
+
+        for (Automovil automovil : automoviles) {
+            boolean cumpleFiltros = true;
+
+            if (precio != null && automovil.getPrecio() >= precio) {
+                cumpleFiltros = false;
+            }
+
+            if (tipo != null && !automovil.getTipo().equalsIgnoreCase(tipo)) {
+                cumpleFiltros = false;
+            }
+
+            if (color != null && !automovil.getColor().equalsIgnoreCase(color)) {
+                cumpleFiltros = false;
+            }
+
+            if (cumpleFiltros) {
+                automovilesFiltrados.add(automovil);
+            }
+        }
+
+        return automovilesFiltrados;
     }
 
 }

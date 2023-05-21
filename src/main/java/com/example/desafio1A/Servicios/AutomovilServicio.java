@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Service
 public class AutomovilServicio {
@@ -18,14 +19,12 @@ public class AutomovilServicio {
     private final List<String> motoresCamioneta = Arrays.asList("2.4cc", "3.0cc", "4.0cc");
     private final List<String> motoresSUV = Arrays.asList("1.8cc", "2.2cc", "2.8cc");
 
-    private List<Automovil> automoviles;
+    private List<Automovil> automovilesGenerados = new ArrayList<>();
 
-    public AutomovilServicio() {
-        automoviles = generarAutomoviles(1000);
-    }
     private final Random random = new Random();
 
     public List<Automovil> generarAutomoviles(int cantidad) {
+        automovilesGenerados.clear();
         List<Automovil> automoviles = new ArrayList<>();
 
         for (int i = 0; i < cantidad; i++) {
@@ -56,34 +55,34 @@ public class AutomovilServicio {
             automovil.setPopularidad(0);
             automoviles.add(automovil);
         }
-
+        automovilesGenerados.addAll(automoviles);
         return automoviles;
     }
 
-    public List<Automovil> filtrarAutomoviles(Integer precio, String tipo, String color) {
-        List<Automovil> automovilesFiltrados = new ArrayList<>();
+    public List<Automovil> obtenerAutomovilesGenerados() {
+        return automovilesGenerados;
+    }
+    public List<Automovil> aplicarFiltros(List<Automovil> automoviles, Integer precio, String color, String tipo) {
+        List<Automovil> resultado = new ArrayList<>(automoviles);
 
-        for (Automovil automovil : automoviles) {
-            boolean cumpleFiltros = true;
-
-            if (precio != null && automovil.getPrecio() >= precio) {
-                cumpleFiltros = false;
-            }
-
-            if (tipo != null && !automovil.getTipo().equalsIgnoreCase(tipo)) {
-                cumpleFiltros = false;
-            }
-
-            if (color != null && !automovil.getColor().equalsIgnoreCase(color)) {
-                cumpleFiltros = false;
-            }
-
-            if (cumpleFiltros) {
-                automovilesFiltrados.add(automovil);
-            }
+        if (precio != null) {
+            resultado = resultado.stream()
+                    .filter(auto -> auto.getPrecio() <= precio)
+                    .collect(Collectors.toList());
         }
 
-        return automovilesFiltrados;
-    }
+        if (color != null) {
+            resultado = resultado.stream()
+                    .filter(auto -> auto.getColor().equalsIgnoreCase(color))
+                    .collect(Collectors.toList());
+        }
 
+        if (tipo != null) {
+            resultado = resultado.stream()
+                    .filter(auto -> auto.getTipo().equalsIgnoreCase(tipo))
+                    .collect(Collectors.toList());
+        }
+
+        return resultado;
+    }
 }

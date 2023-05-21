@@ -30,8 +30,10 @@ public class AutomovilControlador {
             @RequestParam(required = false) String tipo,
             @RequestParam(required = false) String color
     ) {
-        List<Automovil> automovilesFiltrados = automovilServicio.filtrarAutomoviles(precio, tipo, color);
-        return ResponseEntity.ok(automovilesFiltrados);
+        List<Automovil> automoviles = automovilServicio.obtenerAutomovilesGenerados();
+
+        automoviles = automovilServicio.aplicarFiltros(automoviles, precio, color, tipo);
+        return ResponseEntity.ok(automoviles);
     }
 
 }

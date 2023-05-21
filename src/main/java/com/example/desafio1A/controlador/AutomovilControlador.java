@@ -3,10 +3,7 @@ package com.example.desafio1A.controlador;
 import com.example.desafio1A.Entidades.Automovil;
 import com.example.desafio1A.Servicios.AutomovilServicio;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,4 +24,18 @@ public class AutomovilControlador {
         return ResponseEntity.ok(automoviles);
     }
 
+    @GetMapping("/filtrar")
+    public ResponseEntity<List<Automovil>> filtrarAutomoviles(
+            @RequestParam(required = false) Integer precio,
+            @RequestParam(required = false) String tipo,
+            @RequestParam(required = false) String color) {
+
+        List<Automovil> automovilesFiltrados = automovilServicio.filtrarAutomoviles(precio, tipo, color);
+
+        if (automovilesFiltrados.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(automovilesFiltrados);
+        }
+    }
 }

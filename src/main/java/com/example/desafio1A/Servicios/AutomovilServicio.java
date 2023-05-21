@@ -62,6 +62,7 @@ public class AutomovilServicio {
     public List<Automovil> obtenerAutomovilesGenerados() {
         return automovilesGenerados;
     }
+
     public List<Automovil> aplicarFiltros(List<Automovil> automoviles, Integer precio, String color, String tipo) {
         List<Automovil> resultado = new ArrayList<>(automoviles);
 

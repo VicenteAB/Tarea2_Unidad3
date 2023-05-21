@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 @Service
 public class AutomovilServicio {
@@ -19,8 +18,12 @@ public class AutomovilServicio {
     private final List<String> motoresCamioneta = Arrays.asList("2.4cc", "3.0cc", "4.0cc");
     private final List<String> motoresSUV = Arrays.asList("1.8cc", "2.2cc", "2.8cc");
 
-    private final Random random = new Random();
     private List<Automovil> automoviles;
+
+    public AutomovilServicio() {
+        automoviles = generarAutomoviles(1000);
+    }
+    private final Random random = new Random();
 
     public List<Automovil> generarAutomoviles(int cantidad) {
         List<Automovil> automoviles = new ArrayList<>();

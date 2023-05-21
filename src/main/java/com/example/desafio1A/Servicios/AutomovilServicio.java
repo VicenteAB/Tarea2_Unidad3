@@ -27,6 +27,7 @@ public class AutomovilServicio {
         for (int i = 0; i < cantidad; i++) {
             Automovil automovil = new Automovil();
 
+            automovil.setId((long) i + 1);
             automovil.setMarca(marcas.get(random.nextInt(marcas.size())));
             automovil.setAño(random.nextInt(9) + 2015);
             automovil.setColor(colores.get(random.nextInt(colores.size())));

@@ -64,10 +64,10 @@ public class AutomovilServicio {
         return automoviles;
     }
 
-<<<<<<< HEAD
     public List<Automovil> obtenerAutomovilesGenerados() {
         return automovilesGenerados;
     }
+
     public List<Automovil> aplicarFiltros(List<Automovil> automoviles, Integer precio, String color, String tipo) {
         List<Automovil> resultado = new ArrayList<>(automoviles);
 
@@ -90,19 +90,5 @@ public class AutomovilServicio {
         }
 
         return resultado;
-=======
-    public List<Automovil> filtrarAutomoviles(Integer precio, String tipo, String color) {
-        List<Automovil> automovilesFiltrados = generarAutomoviles(100); // Generar una nueva lista de automóviles
-
-        return automovilesFiltrados.stream()
-                .filter(automovil -> {
-                    boolean precioFiltrado = precio == null || automovil.getPrecio() <= precio;
-                    boolean tipoFiltrado = tipo == null || automovil.getTipo().equalsIgnoreCase(tipo);
-                    boolean colorFiltrado = color == null || automovil.getColor().equalsIgnoreCase(color);
-
-                    return precioFiltrado && tipoFiltrado && colorFiltrado;
-                })
-                .collect(Collectors.toList());
->>>>>>> b02ced9ca7c6ac58a26a02f1664c4af094659b68
     }
 }

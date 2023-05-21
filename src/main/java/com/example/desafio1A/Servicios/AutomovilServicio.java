@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 @Service
 public class AutomovilServicio {
@@ -22,7 +21,7 @@ public class AutomovilServicio {
     private List<Automovil> automoviles;
 
     public AutomovilServicio() {
-        automoviles = generarAutomoviles(100);
+        automoviles = generarAutomoviles(1000);
     }
     private final Random random = new Random();
 
@@ -60,9 +59,29 @@ public class AutomovilServicio {
         return automoviles;
     }
 
-    public List<Automovil> getAutomovilesByTipo(String tipo) {
-        return automoviles.stream()
-                .filter(automovil -> automovil.getTipo().equalsIgnoreCase(tipo))
-                .collect(Collectors.toList());
+    public List<Automovil> filtrarAutomoviles(Integer precio, String tipo, String color) {
+        List<Automovil> automovilesFiltrados = new ArrayList<>();
+
+        for (Automovil automovil : automoviles) {
+            boolean cumpleFiltros = true;
+
+            if (precio != null && automovil.getPrecio() >= precio) {
+                cumpleFiltros = false;
+            }
+
+            if (tipo != null && !automovil.getTipo().equalsIgnoreCase(tipo)) {
+                cumpleFiltros = false;
+            }
+
+            if (color != null && !automovil.getColor().equalsIgnoreCase(color)) {
+                cumpleFiltros = false;
+            }
+
+            if (cumpleFiltros) {
+                automovilesFiltrados.add(automovil);
+            }
+        }
+
+        return automovilesFiltrados;
     }
 }

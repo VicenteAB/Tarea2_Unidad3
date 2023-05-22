@@ -28,14 +28,15 @@ public class AutomovilControlador {
     public ResponseEntity<List<Automovil>> filtrarAutomoviles(
             @RequestParam(required = false) Integer precio,
             @RequestParam(required = false) String tipo,
+
             @RequestParam(required = false) String color) {
 
-        List<Automovil> automovilesFiltrados = automovilServicio.filtrarAutomoviles(precio, tipo, color);
 
-        if (automovilesFiltrados.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.ok(automovilesFiltrados);
-        }
+        List<Automovil> automoviles = automovilServicio.obtenerAutomovilesGenerados();
+
+        automoviles = automovilServicio.aplicarFiltros(automoviles, precio, color, tipo);
+        return ResponseEntity.ok(automoviles);
     }
+
+
 }

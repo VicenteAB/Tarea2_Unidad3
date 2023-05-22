@@ -19,6 +19,8 @@ public class AutomovilServicio {
     private final List<String> motoresCamioneta = Arrays.asList("2.4cc", "3.0cc", "4.0cc");
     private final List<String> motoresSUV = Arrays.asList("1.8cc", "2.2cc", "2.8cc");
 
+    private List<Automovil> automovilesGenerados = new ArrayList<>();
+
     private final Random random = new Random();
 
     private List<Automovil> automoviles;
@@ -27,11 +29,13 @@ public class AutomovilServicio {
         automoviles = generarAutomoviles(100);
     }
     public List<Automovil> generarAutomoviles(int cantidad) {
+        automovilesGenerados.clear();
         List<Automovil> automoviles = new ArrayList<>();
 
         for (int i = 0; i < cantidad; i++) {
             Automovil automovil = new Automovil();
 
+            automovil.setId((long) i + 1);
             automovil.setMarca(marcas.get(random.nextInt(marcas.size())));
             automovil.setAño(random.nextInt(9) + 2015);
             automovil.setColor(colores.get(random.nextInt(colores.size())));
@@ -56,21 +60,35 @@ public class AutomovilServicio {
             automovil.setPopularidad(0);
             automoviles.add(automovil);
         }
-
+        automovilesGenerados.addAll(automoviles);
         return automoviles;
     }
 
-    public List<Automovil> filtrarAutomoviles(Integer precio, String tipo, String color) {
-        List<Automovil> automovilesFiltrados = generarAutomoviles(100); // Generar una nueva lista de automóviles
+    public List<Automovil> obtenerAutomovilesGenerados() {
+        return automovilesGenerados;
+    }
 
-        return automovilesFiltrados.stream()
-                .filter(automovil -> {
-                    boolean precioFiltrado = precio == null || automovil.getPrecio() <= precio;
-                    boolean tipoFiltrado = tipo == null || automovil.getTipo().equalsIgnoreCase(tipo);
-                    boolean colorFiltrado = color == null || automovil.getColor().equalsIgnoreCase(color);
+    public List<Automovil> aplicarFiltros(List<Automovil> automoviles, Integer precio, String color, String tipo) {
+        List<Automovil> resultado = new ArrayList<>(automoviles);
 
-                    return precioFiltrado && tipoFiltrado && colorFiltrado;
-                })
-                .collect(Collectors.toList());
+        if (precio != null) {
+            resultado = resultado.stream()
+                    .filter(auto -> auto.getPrecio() <= precio)
+                    .collect(Collectors.toList());
+        }
+
+        if (color != null) {
+            resultado = resultado.stream()
+                    .filter(auto -> auto.getColor().equalsIgnoreCase(color))
+                    .collect(Collectors.toList());
+        }
+
+        if (tipo != null) {
+            resultado = resultado.stream()
+                    .filter(auto -> auto.getTipo().equalsIgnoreCase(tipo))
+                    .collect(Collectors.toList());
+        }
+
+        return resultado;
     }
 }
